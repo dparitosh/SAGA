@@ -1,0 +1,15 @@
+{
+    "azure": {
+        "subscription_id": "00000000-0000-0000-0000-000000000000",
+        "resource_group": "agentic-ai-rg",
+        "location": "East US"
+    },
+    "network": {
+        "vnet_cidr": ["10.0.0.0/16"],
+        "subnet_cidr": ["10.0.2.0/24"]
+    },
+    "defaults": {
+        "vm_size": "Standard_DS1_v2",
+        "vm_image_sku": "18.04-LTS"
+    }
+}

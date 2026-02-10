@@ -1,0 +1,62 @@
+tosca_definitions_version: tosca_simple_yaml_1_3
+
+description: Azure Agentic AI Operations Model
+
+node_types:
+  azure.nodes.AppService:
+    derived_from: tosca.nodes.WebApplication
+    properties:
+      resourceGroup:
+        type: string
+        required: true
+      appName:
+        type: string
+        required: true
+    interfaces:
+      Standard:
+        create:
+          implementation: ../tools/terraform/main.tf
+          inputs:
+            module: "app_service_module"
+        configure:
+          implementation: ../tools/powershell/app-scale.ps1
+          inputs:
+            newTier: "Standard"
+            newSize: "S1"
+
+  azure.nodes.VirtualMachine:
+    derived_from: tosca.nodes.Compute
+    properties:
+      resourceGroup:
+        type: string
+      vmName:
+        type: string
+    interfaces:
+      Standard:
+        create:
+          implementation: ../tools/terraform/main.tf
+        start:
+          implementation: ../tools/powershell/vm-start.ps1
+        stop:
+          implementation: ../tools/powershell/vm-stop.ps1
+        restart:
+          implementation: ../tools/powershell/vm-restart.ps1
+
+topology_template:
+  inputs:
+    location:
+      type: string
+      default: "East US"
+
+  node_templates:
+    MyProdApp:
+      type: azure.nodes.AppService
+      properties:
+        resourceGroup: "agentic-ai-rg"
+        appName: "prod-cloud-app-01"
+
+    MyOperationsVM:
+      type: azure.nodes.VirtualMachine
+      properties:
+        resourceGroup: "agentic-ai-rg"
+        vmName: "ops-vm-01"

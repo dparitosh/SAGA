@@ -1,0 +1,56 @@
+[
+  {
+    "name": "restart_vm",
+    "description": "Restart Azure Virtual Machine",
+    "parameters": ["resourceGroup", "vmName"],
+    "command": "powershell ./tools/powershell/vm-restart.ps1 -resourceGroup \"${resourceGroup}\" -vmName \"${vmName}\""
+  },
+  {
+      "name": "start_vm",
+      "description": "Start Azure Virtual Machine",
+      "parameters": ["resourceGroup", "vmName"],
+      "command": "powershell ./tools/powershell/vm-start.ps1 -resourceGroup \"${resourceGroup}\" -vmName \"${vmName}\""
+  },
+  {
+      "name": "stop_vm",
+      "description": "Stop Azure Virtual Machine",
+      "parameters": ["resourceGroup", "vmName"],
+      "command": "powershell ./tools/powershell/vm-stop.ps1 -resourceGroup \"${resourceGroup}\" -vmName \"${vmName}\""
+  },
+  {
+      "name": "scale_app",
+      "description": "Scale Azure App Service",
+      "parameters": ["resourceGroup", "appName", "newTier", "newSize", "instanceCount"],
+      "command": "powershell ./tools/powershell/app-scale.ps1 -resourceGroup \"${resourceGroup}\" -appName \"${appName}\" -newTier \"${newTier}\" -newSize \"${newSize}\" -instanceCount ${instanceCount}"
+  },
+  {
+      "name": "terraform_apply",
+      "description": "Apply Terraform Infrastructure",
+      "parameters": ["workingDir"],
+      "command": "terraform -chdir=\"${workingDir}\" apply -auto-approve"
+  },
+  {
+      "name": "terraform_plan",
+      "description": "Plan Terraform Infrastructure",
+      "parameters": ["workingDir"],
+      "command": "terraform -chdir=\"${workingDir}\" plan"
+  },
+  {
+      "name": "tosca_execute_node_op",
+      "description": "Execute a lifecycle operation on a TOSCA node (e.g., start, stop, configure)",
+      "parameters": ["node_name", "operation"],
+      "command": "python ./mcp-server/tosca_processor.py --node ${node_name} --op ${operation}"
+  },
+  {
+      "name": "get_metric",
+      "description": "Retrieve Azure Monitor metrics for a specific resource",
+      "parameters": ["resourceId", "metricName", "aggregation", "timeRangeHours"],
+      "command": "powershell ./tools/powershell/get-metric.ps1 -resourceId \"${resourceId}\" -metricName \"${metricName}\" -aggregation \"${aggregation}\" -timeRangeHours ${timeRangeHours}"
+  },
+  {
+      "name": "get_activity_logs",
+      "description": "Retrieve Azure Activity Logs for auditing and diagnostics",
+      "parameters": ["resourceGroup", "maxRecords"],
+      "command": "powershell ./tools/powershell/get-logs.ps1 -resourceGroup \"${resourceGroup}\" -maxRecords ${maxRecords}"
+  }
+]
