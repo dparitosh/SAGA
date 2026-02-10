@@ -1,0 +1,69 @@
+# Logs
+*.log
+logs/
+audit.log
+
+# Environment variables
+.env
+.env.local
+*.env
+
+# Azure credentials
+.azure/
+*.publishsettings
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars.json
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets (safety net)
+*secrets*
+*password*
+*credentials*
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Temporary files
+tmp/
+temp/
+*.tmp
